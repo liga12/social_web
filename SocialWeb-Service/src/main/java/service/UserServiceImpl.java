@@ -61,6 +61,7 @@ public class UserServiceImpl implements UserService {
     userInform.setLastname(lastname);
     userInform.setEmail(email);
     user.setUserInform(userInform);
+    userInform.setUser(user);
     save(user);
 
 //    new UserInformServiceImpl().save()
