@@ -37,9 +37,6 @@ public class Bookmark implements Serializable {
     @JoinColumn(name = "id_post", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Post post;
-    @JoinColumn(name = "id_user", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private User user;
 
     public Bookmark() {
     }
@@ -62,14 +59,6 @@ public class Bookmark implements Serializable {
 
     public void setPost(Post post) {
         this.post = post;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     @Override

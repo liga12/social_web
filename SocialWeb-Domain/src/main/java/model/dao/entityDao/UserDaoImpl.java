@@ -8,14 +8,16 @@ import util.HibernateUtil;
 public class UserDaoImpl extends AbstractDao<User, Integer> implements UserDao {
 
   @Override
-  public User byUsername(String name) {
+  public User byUserArgument(String argument, String column) {
     return (User) HibernateUtil.getSessionFactory().openSession().createCriteria(User.class).
-        add(Restrictions.eq("username", name)).uniqueResult();
+        add(Restrictions.eq(column, argument)).uniqueResult();
   }
 
   @Override
-  public User byUserlogin(String login) {
+  public User byUserTwoArgument(String firstArgument, String firstColumn, String secondArgument,
+      String secondColumn) {
     return (User) HibernateUtil.getSessionFactory().openSession().createCriteria(User.class).
-        add(Restrictions.eq("login", login)).uniqueResult();
+        add(Restrictions.eq(firstColumn, firstArgument)).
+        add(Restrictions.eq(secondColumn, secondArgument)).uniqueResult();
   }
 }

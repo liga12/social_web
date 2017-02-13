@@ -155,7 +155,14 @@ public class Post implements Serializable {
 
     @Override
     public String toString() {
-        return "uits.jv21603.reactorsample.domain.newpackage.Post[ id=" + id + " ]";
+        return "Post{" +
+            "id=" + id +
+            ", like=" + like +
+            ", date=" + date +
+            ", status=" + status +
+            ", photoPostList=" + photoPostList +
+            ", bookmarkList=" + bookmarkList +
+            ", commentList=" + commentList +
+            '}';
     }
-    
 }

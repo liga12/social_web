@@ -5,7 +5,7 @@
     <title>$Title$</title>
 </head>
 <body>
-<form action="/id" method="post">
+<form action="/soc" method="post">
     <table>
         <tr>
             <td><label for="login">Login</label></td>
@@ -29,6 +29,6 @@
 <form action="/registration.jsp" method="post">
     <input type="submit" name="registration" value="Регистрация"/>
 </form>
-<c:out value="${error}"/>
+<c:out value='${data}'/>
 </body>
 </html>

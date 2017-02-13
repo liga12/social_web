@@ -123,7 +123,12 @@ public class PhotoPost implements Serializable {
 
     @Override
     public String toString() {
-        return "uits.jv21603.reactorsample.domain.newpackage.PhotoPost[ id=" + id + " ]";
+        return "PhotoPost{" +
+            "id=" + id +
+            ", location='" + location + '\'' +
+            ", date=" + date +
+            ", status=" + status +
+            ", post=" + post +
+            '}';
     }
-    
 }

@@ -29,6 +29,6 @@
         </tr>
     </table>
 </form>
-<c:out value="${error}"/>
+<c:out value="${data}"/>
 </body>
 </html>

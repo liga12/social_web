@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.entity;
 
 import java.io.Serializable;
@@ -15,20 +10,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-/**
- *
- * @author liga
- */
+
 @Entity
 @Table(name = "user")
 public class User implements Serializable {
-
-    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -43,15 +31,30 @@ public class User implements Serializable {
     @Basic(optional = false)
     @Column(name = "status")
     private boolean status;
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user",
-        cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE} )
-    private UserInform userInform;
+    @Basic(optional = false)
+    @Column(name = "email")
+    private String email;
+    @Basic(optional = false)
+    @Column(name = "firstname")
+    private String firstname;
+    @Basic(optional = false)
+    @Column(name = "lastname")
+    private String lastname;
+
+    @OneToMany(fetch = FetchType.LAZY,
+        cascade = { CascadeType.ALL,CascadeType.PERSIST,CascadeType.MERGE },
+        mappedBy = "user")
+    List<Post>  posts;
+
+
+
+
+//    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user",
+//        cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE} )
+//    private UserInform userInform;
+
 
     public User() {
-    }
-
-    public User(Integer id) {
-        this.id = id;
     }
 
     public User(Integer id, String login, String passsword, boolean status) {
@@ -81,8 +84,8 @@ public class User implements Serializable {
         return password;
     }
 
-    public void setPassword(String passsword) {
-        this.password = passsword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public boolean getStatus() {
@@ -93,12 +96,36 @@ public class User implements Serializable {
         this.status = status;
     }
 
-    public UserInform getUserInform() {
-        return userInform;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUserInform(UserInform userInformCollection) {
-        this.userInform = userInformCollection;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 
     @Override
@@ -126,9 +153,12 @@ public class User implements Serializable {
         return "User{" +
             "id=" + id +
             ", login='" + login + '\'' +
-            ", passsword='" + password + '\'' +
+            ", password='" + password + '\'' +
             ", status=" + status +
-            ", userInform =" + userInform+
+            ", email='" + email + '\'' +
+            ", firstname='" + firstname + '\'' +
+            ", lastname='" + lastname + '\'' +
+            ", posts=" + posts +
             '}';
     }
 }

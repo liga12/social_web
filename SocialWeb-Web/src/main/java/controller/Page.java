@@ -16,7 +16,6 @@ public class Page {
 
   public void createPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     resp.setContentType("text/html; charset=utf-8");
-    String role = (String) req.getSession().getAttribute("role");
     String id = (String) req.getSession().getAttribute("id");
     RequestDispatcher dispatcherFirst = req.getRequestDispatcher("/user_wall.jsp");
     dispatcherFirst.include(req, resp);

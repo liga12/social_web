@@ -13,8 +13,7 @@
     <!--<property name="hbm2ddl.auto">create-drop</property>-->
     <!--<property name="hbm2ddl.auto">create</property>-->
 
-    <mapping class="model.entity.UserInform"/>
-    <mapping class="model.entity.User"/>
+        <mapping class="model.entity.User"/>
     <mapping class="model.entity.PhotoAvatar"/>
     <mapping class="model.entity.PhotoPost"/>
     <mapping class="model.entity.Bookmark"/>

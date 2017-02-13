@@ -3,6 +3,8 @@ package service;
 import java.io.Serializable;
 import java.util.List;
 import model.entity.User;
+import org.hibernate.criterion.Restrictions;
+import util.HibernateUtil;
 
 
 public interface UserService {
@@ -17,11 +19,10 @@ public interface UserService {
 
   List<User> getList();
 
-  User getUserAuthorization(String login, String password);
+  User byUserTwoArgument(String firstArgument, String firstColumn,
+      String secondArgument, String secondColumn);
 
-  User byUsername(String name);
+  public User byUserArgument(String argument, String column);
 
-  void registration(String firstname, String lastname, String email, String login, String password);
 
-  User byUserlogin(String login);
 }

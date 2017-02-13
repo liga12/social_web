@@ -1,13 +1,9 @@
 package service;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import model.dao.entityDao.UserDaoImpl;
 import model.entity.User;
-import model.entity.UserInform;
-import org.hibernate.criterion.Restrictions;
-import util.HibernateUtil;
 
 
 public class UserServiceImpl implements UserService {
@@ -43,56 +39,16 @@ public class UserServiceImpl implements UserService {
     return userDao.getList();
   }
 
-
   @Override
-  public User byUsername(String name) {
-    return userDao.byUsername(name);
+  public User byUserArgument(String argument, String column) {
+    return userDao.byUserArgument(argument, column);
   }
 
   @Override
-  public void registration(String firstname, String lastname, String email, String login,
-      String password) {
-    User user = new User();
-    user.setLogin(login);
-    user.setPassword(password);
-//  User user1 = byUserlogin(login);
-    UserInform userInform = new UserInform();
-    userInform.setFirstname(firstname);
-    userInform.setLastname(lastname);
-    userInform.setEmail(email);
-    user.setUserInform(userInform);
-    userInform.setUser(user);
-    save(user);
-
-//    new UserInformServiceImpl().save()
-//    user1.setUserInform(userInform);
-//    save(user1);
-
-
-
-//    System.out.println(user);
-//    UserInform userInform = new UserInform();
-//    user.getUserInform().setFirstname(firstname);
-//    user.getUserInform().setLastname(lastname);
-
-
-  }
-
-  @Override
-  public User byUserlogin(String login) {
-    return userDao.byUserlogin(login);
-  }
-
-
-  public User getUserAuthorization(String login, String password) {
-    User user = (User) HibernateUtil.getSessionFactory().openSession().createCriteria(User.class).
-        add(Restrictions.eq("login", login)).
-        add(Restrictions.eq("password", password)).uniqueResult();
-    if (user != null && user.getStatus() == true) {
-      return user;
-    } else {
-      return null;
-    }
+  public User byUserTwoArgument(String firstArgument, String firstColumn, String secondArgument,
+      String secondColumn) {
+    return userDao.byUserTwoArgument(firstArgument, firstColumn, secondArgument, secondColumn);
   }
 }
+
 
