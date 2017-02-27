@@ -20,6 +20,7 @@
     <mapping class="model.entity.Comment"/>
     <mapping class="model.entity.Friend"/>
     <mapping class="model.entity.Post"/>
+    <mapping class="model.entity.URLMassage"/>
 
   </session-factory>
 </hibernate-configuration>

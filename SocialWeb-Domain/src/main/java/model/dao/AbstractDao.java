@@ -66,8 +66,8 @@ public abstract class AbstractDao<T, I extends Serializable> implements BaseDao<
     Session session = HibernateUtil.getSessionFactory().openSession();
     Transaction transaction = session.beginTransaction();
     try {
-      transaction.commit();
       session.delete(object);
+      transaction.commit();
     } catch (Exception e) {
       transaction.rollback();
       e.printStackTrace();

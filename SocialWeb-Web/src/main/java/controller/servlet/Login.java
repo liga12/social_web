@@ -1,48 +1,34 @@
 package controller.servlet;
 
-import controller.Authorization;
 import controller.Page;
+import controller.UserBySession;
 import java.io.IOException;
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.entity.User;
-import service.UserServiceImpl;
 
 @WebServlet("/soc")
 public class Login extends HttpServlet {
 
   @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+  protected void service(HttpServletRequest req, HttpServletResponse resp)
       throws ServletException, IOException {
+
     req.setCharacterEncoding("UTF-8");
 
-    String login = req.getParameter("login");
-    String password = req.getParameter("password");
-    Page page = new Page();
-
-    User user = new Authorization().getUserAuthorization(login, password);
+    User user = new UserBySession(req, resp).getUser();
     if (user != null) {
-      Integer id = user.getId();
       String firstname = user.getFirstname();
       String lasttname = user.getLastname();
-      String name = new String(firstname +" "+lasttname);
+      String name = new String(firstname + " " + lasttname);
       req.setAttribute("name", name);
-      System.out.println(name);
-      page.setSession(req, resp, id);
-
-    } else {
-      req.setAttribute("data", "Неверный логин или пароль");
-      printPage(req, resp);
+      new Page().createPage(req, resp, "WEB-INF/user_wall.jsp");
+    }else {
+      resp.sendRedirect("/start");
+//      new Page().createPage(req,resp, "/start");
     }
-
-  }
-
-  private void printPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/login.jsp");
-    dispatcher.forward(req, resp);
   }
 }

@@ -5,7 +5,7 @@
     <title>$Title$</title>
 </head>
 <body>
-<form action="/registraion" method="post">
+<form action="/registration" method="post">
     <table>
         <tr>
             <td><input type="text" placeholder="Введите имя" required name="firstname"/></td>
@@ -21,6 +21,9 @@
         </tr>
         <tr>
             <td><input type="password" placeholder="Введите пароль" required name="password"/></td>
+        </tr>
+        <tr>
+            <td><input type="password" placeholder="Повторите пароль" required name="passwordtwo"/></td>
         </tr>
         <tr>
             <td>

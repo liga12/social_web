@@ -21,7 +21,7 @@ public class Encrupt {
       Cipher cipher = Cipher.getInstance("AES");
       // encrypt the text
       cipher.init(Cipher.ENCRYPT_MODE, aesKey);
-      byte[] encrypted = cipher.doFinal(md5Hex.getBytes());
+      byte[] encrypted = cipher.doFinal(getEncryptedMd5(data).getBytes());
       encrypt = (new String(encrypted));
       // decrypt the text
 //      cipher.init(Cipher.DECRYPT_MODE, aesKey);
@@ -31,5 +31,10 @@ public class Encrupt {
       e.printStackTrace();
     }
     return encrypt;
+  }
+
+  public String getEncryptedMd5(String data){
+    String md5Hex = DigestUtils.md5Hex(data);
+    return md5Hex;
   }
 }
