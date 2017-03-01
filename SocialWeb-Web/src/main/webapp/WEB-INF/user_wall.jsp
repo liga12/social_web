@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<link rel="stylesheet" type="text/css" href="user_wall.css"/>
+<link rel="stylesheet" type="text/css" href="../css/user_wall.css"/>
 <html>
 <head>
     <title>Title</title>
@@ -34,7 +34,7 @@
             <div class="wall">
                 <div class="post">добавте пост
                     <div class="post_avatar"></div>
-                    <form action="${pageContext.request.contextPath}/uploadFile" method="post"
+                    <form action="/uploadFile" method="post"
                           enctype="multipart/form-data">
                         <input class="post_text" type="text" name="description">
                         <p><input type="file" name="file" multiple accept="image/*,image/jpeg">

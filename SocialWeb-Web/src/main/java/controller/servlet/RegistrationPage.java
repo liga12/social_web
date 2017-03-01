@@ -1,6 +1,7 @@
 package controller.servlet;
 
 import controller.Page;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,10 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns = {"/registrationPage"})
 public class RegistrationPage extends HttpServlet {
 
-  @Override
-  protected void service(HttpServletRequest req, HttpServletResponse resp)
-      throws ServletException, IOException {
+    @Override
+    protected void service(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
 
-    new Page().createPage(req, resp, "WEB-INF/registration.jsp");
-  }
+        new Page().createPage(req, resp, "WEB-INF/registration.jsp");
+    }
 }

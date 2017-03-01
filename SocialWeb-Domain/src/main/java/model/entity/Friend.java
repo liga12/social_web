@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.entity;
 
 import java.io.Serializable;
@@ -18,14 +13,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
-/**
- *
- * @author liga
- */
 @Entity
 @Table(name = "friend")
-@NamedQueries({
-    @NamedQuery(name = "Friend.findAll", query = "SELECT f FROM Friend f")})
 public class Friend implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -96,5 +85,5 @@ public class Friend implements Serializable {
     public String toString() {
         return "uits.jv21603.reactorsample.domain.newpackage.Friend[ id=" + id + " ]";
     }
-    
+
 }
