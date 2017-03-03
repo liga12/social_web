@@ -1,13 +1,8 @@
 package controller.servlet;
 
-import controller.Encrupt;
 import controller.Mailer;
-import controller.Page;
 import controller.RegistrationUser;
-
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -16,67 +11,72 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.dao.entityDao.URLDaoImpl;
-import model.entity.URLMassage;
-
-@WebServlet("/registration")
+@WebServlet("/registraion")
 public class Registration extends HttpServlet {
 
-    String data = "";
+  String data = "";
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException, IOException {
-            req.setCharacterEncoding("utf-8");
-        resp.setContentType("text/html;charset=utf-8");
+  @Override
+  protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
 
-        String firstname = req.getParameter("firstname");
-        String lastname = req.getParameter("lastname");
-        String email = req.getParameter("email");
-        String login = req.getParameter("login");
-        String password = req.getParameter("password");
-        String passwordTwo = req.getParameter("passwordtwo");
+    req.setCharacterEncoding("UTF-8");
+    resp.setCharacterEncoding("UTF-8");
+    String firstname = req.getParameter("firstname");
+    String lastname = req.getParameter("lastname");
+    String email = req.getParameter("email");
+    String login = req.getParameter("login");
+    String password = req.getParameter("password");
 
-        List<String> registration = new RegistrationUser().setRegistration
+    List<String> registration = new RegistrationUser().setRegistration
+        (firstname, lastname, email, login, password);
+    if (registration.size() == 0) {
+      data = "Успешно";
+      Mailer mailer = new Mailer();
+      mailer.send(email);
+      printPage(req, resp);
+    } else {
 
-                (firstname, lastname, email, login, password, passwordTwo);
-        if (registration.size() == 0) {
-            req.setAttribute("data", "Успешно");
-
-            URLMassage urlMassage = new URLMassage();
-            URLDaoImpl urlDao = new URLDaoImpl();
-
-            String urlFull = getFullUrl(req, email);
-            urlMassage.setUrl(urlFull);
-            urlDao.save(urlMassage);
-
-            Mailer mailer = new Mailer();
-            mailer.send(email, urlFull);
-
-            String[] emailc = email.split("@");
-            String emailClient = emailc[1];
-            req.setAttribute("host", "https://" + emailClient);
-
-            new Page().createPage(req, resp, "WEB-INF/onEmail.jsp");
-
+      for (String s : registration) {
+        if (s.equals("emailNotCorrect")) {
+          data = "Не корректный email\n";
         } else {
-            for (String s : registration) {
-                data += "  " + s;
-
-            }
-            req.setAttribute("data", data);
-            new Page().createPage(req, resp, "/WEB-INF/registration.jsp");
+          if (s.equals("email")) {
+            data += "Email существует\n";
+          }
         }
+        if (s.equals("login")) {
+          data += "Логин существует\n";
+        }
+        if (s.equals("password < 6")) {
+          data += "Пароль меньше 6 символов\n";
+        }
+      }
+      printPage(req, resp);
     }
 
-    public String getFullUrl(HttpServletRequest req,String email){
-        Encrupt encrupt = new Encrupt();
-        String scheme = req.getScheme();
-        String serverName = req.getServerName();
-        StringBuilder url = new StringBuilder();
-        url.append(scheme).append("://").append(serverName);
-        url.append(":").append(req.getServerPort());
-        url.append("/emailRegis/").append(encrupt.getEncryptedMd5(email));
-        return url.toString();
-    }
+//      for (String s : registration) {
+//        if (s.equals("email")) {
+//          data = "email существует";
+//        } else {
+//          if (s.equals("emailNotCorrect")) {
+//            data = "Не корректный email";
+//          } else {
+//            if (s.equals("login")) {
+//              data = "логин существует";
+//            }
+//          }
+////        }
+//      }
+//      printPage(req, resp, data);
+//    }
+  }
+
+  private void printPage(HttpServletRequest req, HttpServletResponse resp)
+      throws ServletException, IOException {
+    req.setAttribute("data", data);
+    RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/registration.jsp");
+    dispatcher.forward(req, resp);
+    data = null;
+  }
 }

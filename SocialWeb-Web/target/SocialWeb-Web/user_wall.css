@@ -1,0 +1,134 @@
+/*.my-flex-container{*/
+  /*display: flex;*/
+  /*background-color: black;*/
+  /*height: 70px;*/
+  /*width: 100%;*/
+  /*border: 1px dashed red;*/
+  /*flex-direction: row;*/
+  /*justify-content: flex-start;*/
+  /*align-items: stretch;*/
+/*}*/
+
+/*.my-flex-block1{*/
+  /*display: flex;*/
+  /*background-color: blueviolet;*/
+  /*!*height: 50px;*!*/
+  /*width:50%;*/
+  /*border: 1px dashed green;*/
+  /*!*flex-direction: row-reverse;*!*/
+  /*flex-wrap: nowrap;*/
+/*}*/
+
+body{
+
+  background-image: url("http://www.kartinkioboi.ru/_ph/2/844738783.jpg?1484925588");
+}
+.all{
+  width: 1000px;
+  /*margin-right: 150px;*/
+  margin-left: 150px;
+}
+
+
+.header{
+  background-color: blue;
+  height: 30px;
+  width: 100%;
+  text-align: center;
+  border-radius: 30px;
+}
+
+.table{
+  /*background-color: green;*/
+  display: flex;
+  height: 700px;
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+
+
+  /*border: 1px dashed red;*/
+  /*flex-direction: row;*/
+}
+
+.left{
+  /*background-color: green;*/
+  width: 30%;
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+
+
+}
+
+.right{
+  /*background-color: green;*/
+  width: 70%;
+  text-align: center;
+  margin-left: 10px;
+}
+
+.avatar{
+  width: 100%;
+  height: 350px;
+
+  background-image: url(http://3.bp.blogspot.com/-ZT8ZQ-D5q70/VbPQ904p-MI/AAAAAAAABN4/rI7a62MjB_c/s1600/JAVA-ICON.png);
+  background-position:  center;
+  background-size: cover;
+  border-radius: 30px;
+}
+
+.bottoms{
+  width: 100%;
+  height: 100px;
+  text-align: center;
+
+  /*background-image: url(http://3.bp.blogspot.com/-ZT8ZQ-D5q70/VbPQ904p-MI/AAAAAAAABN4/rI7a62MjB_c/s1600/JAVA-ICON.png);*/
+}
+
+
+
+.bottom{
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  background-color: #b5ffd6;
+  margin-top: 10px;
+  border-radius: 30px;
+  /*background-image: url(http://3.bp.blogspot.com/-ZT8ZQ-D5q70/VbPQ904p-MI/AAAAAAAABN4/rI7a62MjB_c/s1600/JAVA-ICON.png);*/
+}
+
+.inform{
+  width: 100%;
+  height: 350px;
+  background-color: #b5ffd6;
+  border-radius: 30px;
+
+}
+
+.wall{
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.text_name{
+  text-align: center;
+  font-size: 30px;
+  background-color: transparent;
+}
+
+.post{
+  margin-top: 10px;
+  height: 100px;
+  background-color: #b5ffd6;
+  border-radius: 30px;
+}
+
+.post_text{
+  height: 30px;
+  width: 100%;
+}
+
+
+

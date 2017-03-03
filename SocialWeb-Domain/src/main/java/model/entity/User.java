@@ -42,9 +42,11 @@ public class User implements Serializable {
     private String lastname;
 
     @OneToMany(fetch = FetchType.LAZY,
-            cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE},
-            mappedBy = "user")
-    List<Post> posts;
+        cascade = { CascadeType.ALL,CascadeType.PERSIST,CascadeType.MERGE },
+        mappedBy = "user")
+    List<Post>  posts;
+
+
 
 
 //    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user",
@@ -149,14 +151,14 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
-                ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
-                ", status=" + status +
-                ", email='" + email + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
-                ", posts=" + posts +
-                '}';
+            "id=" + id +
+            ", login='" + login + '\'' +
+            ", password='" + password + '\'' +
+            ", status=" + status +
+            ", email='" + email + '\'' +
+            ", firstname='" + firstname + '\'' +
+            ", lastname='" + lastname + '\'' +
+            ", posts=" + posts +
+            '}';
     }
 }

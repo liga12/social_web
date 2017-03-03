@@ -4,7 +4,7 @@
 <hibernate-configuration>
   <session-factory>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-    <property name="connection.url">jdbc:mysql://localhost:3306/social_web2</property>
+    <property name="connection.url">jdbc:mysql://localhost:3306/social_web</property>
     <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
     <property name="connection.username">root</property>
     <property name="connection.password"></property>
@@ -20,7 +20,6 @@
     <mapping class="model.entity.Comment"/>
     <mapping class="model.entity.Friend"/>
     <mapping class="model.entity.Post"/>
-    <mapping class="model.entity.URLMassage"/>
 
   </session-factory>
 </hibernate-configuration>

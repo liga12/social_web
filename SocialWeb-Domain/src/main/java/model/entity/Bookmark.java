@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package model.entity;
 
 import java.io.Serializable;
@@ -13,9 +18,17 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+/**
+ *
+ * @author liga
+ */
 @Entity
 @Table(name = "bookmark")
+@NamedQueries({
+    @NamedQuery(name = "Bookmark.findAll", query = "SELECT b FROM Bookmark b")})
 public class Bookmark implements Serializable {
+
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -71,7 +84,7 @@ public class Bookmark implements Serializable {
     @Override
     public String toString() {
         return "Bookmark{" +
-                "id=" + id +
-                '}';
+            "id=" + id +
+            '}';
     }
 }
