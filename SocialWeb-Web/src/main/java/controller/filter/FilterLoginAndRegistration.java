@@ -31,22 +31,18 @@ public class FilterLoginAndRegistration implements Filter {
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         HttpServletResponse httpServletResponse = (HttpServletResponse) response;
         HttpSession session = httpServletRequest.getSession();
-        Cookie[] cookies = httpServletRequest.getCookies();
-        Cookie reqCookie = null;
 
         if (null == request.getCharacterEncoding()) {
             request.setCharacterEncoding(encoding);
         }
-
         // Set the default response content type and encoding
         response.setContentType("text/html; charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
 
-
-
-
         if (session != null) {
+            Cookie[] cookies = httpServletRequest.getCookies();
             if (cookies != null) {
+                Cookie reqCookie = null;
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("idSession")) {
                         reqCookie = cookie;

@@ -5,13 +5,15 @@ import java.util.List;
 
 public interface BaseDao<T, I> {
 
-  T byId(I id);
+    T byId(I id);
 
-  Serializable save(T object);
+    Serializable save(T object);
 
-  void update(T object);
+    public void saveORUpdate(T object);
 
-  void remove(T object);
+    void update(T object);
 
-  List<T> getList();
+    void remove(T object);
+
+    List<T> getList();
 }

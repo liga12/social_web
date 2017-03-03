@@ -1,13 +1,7 @@
 package model.entity;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "url_message")
@@ -21,6 +15,10 @@ public class URLMassage implements Serializable {
   @Basic(optional = false)
   @Column(name = "url")
   private String url;
+
+  @JoinColumn(name = "id_user", referencedColumnName = "id", unique = false, nullable = false, insertable = true, updatable = true)
+  @OneToOne(optional = false)
+  private User user;
 
   public URLMassage() {
   }
@@ -39,6 +37,14 @@ public class URLMassage implements Serializable {
 
   public void setUrl(String url) {
     this.url = url;
+  }
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
   }
 
   @Override
@@ -65,11 +71,12 @@ public class URLMassage implements Serializable {
     return result;
   }
 
+
   @Override
   public String toString() {
     return "URLMassage{" +
-        "id=" + id +
-        ", url='" + url + '\'' +
-        "} " + super.toString();
+            "id=" + id +
+            ", url='" + url + '\'' +
+            '}';
   }
 }

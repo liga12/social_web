@@ -5,7 +5,10 @@ import controller.Page;
 import controller.RecipientUserBySession;
 import controller.SaverPost;
 import controller.UploadFiles;
+import model.entity.PhotoPost;
+import model.entity.Post;
 import model.entity.User;
+import service.UserServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -16,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
         maxFileSize = 1024 * 1024 * 10, // 10MB
@@ -23,9 +28,12 @@ import java.io.IOException;
 @WebServlet("/uploadFile")
 public class UploadFileServlet extends HttpServlet {
 
+
     private final String UPLOAD_DIRECTORY = "/home/liga/Downloads/Uploads";
 
     public static final String SAVE_DIRECTORY = "s";
+
+    List<String> urlImages = new ArrayList<>();
 
     public UploadFileServlet() {
         super();
@@ -45,15 +53,11 @@ public class UploadFileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            request.setCharacterEncoding("utf-8");
             String description = request.getParameter("description");
             System.out.println("Description: " + description);
-            RecipientUserBySession recipientUserBySession = new RecipientUserBySession();
-            User user = recipientUserBySession.getUser(request);
-            String userId = String.valueOf(user.getId());
-            SaverPost saverPost = new SaverPost();
-            saverPost.savePost(user);
-
-            user.getPosts();
+            User user = new RecipientUserBySession().getUser(request);
+            String userId = user.getId().toString();
 
 
             // Part list (multi files).
@@ -64,9 +68,36 @@ public class UploadFileServlet extends HttpServlet {
                     String filePath = uploadFiles.getFullSavePath(userId + "/post2") + File.separator + fileName;
                     System.out.println("Write attachment to file: " + filePath);
                     // Write to file
+                    urlImages.add(filePath);
                     part.write(filePath);
                 }
             }
+            for (String urlImage : urlImages) {
+                System.out.println(urlImage);
+            }
+
+
+
+
+            UserServiceImpl userService = new UserServiceImpl();
+            Post post = new Post();
+            PhotoPost photoPost = new PhotoPost();
+            photoPost.setLocation("dghdlgjf");
+//            photoPost.setStatus(true);
+            photoPost.setPost(post);
+            List<PhotoPost> photoPosts = new ArrayList<>();
+            photoPosts.add(photoPost);
+            post.setPhotoPostList(photoPosts);
+            post.setComment(description);
+            post.setUser(user);
+//            post.setStatus(true);
+
+            List<Post> posts = new ArrayList<>();
+            posts.add(post);
+            user.setPosts(posts);
+            userService.saveORUpdate(user);
+
+
             // Upload successfully!.
             request.setAttribute("message", "Загружено");
             new Page().createPage(request, response, "/soc");

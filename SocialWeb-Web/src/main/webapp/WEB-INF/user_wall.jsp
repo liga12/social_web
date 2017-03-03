@@ -8,22 +8,12 @@
 <body>
 <body>
 <div class="all">
-    <div class="header">header
+    <div class="header">
+        <%@include file="logout.jsp"%>
     </div>
     <div class="table">
         <div class="left">
-            <div class="avatar">
-            </div>
-
-            <div class="bottoms">
-                <form action="/login" method="get">
-                    <input class="bottom" type="submit" name="change_avatar" value="аватар">
-                    <input class="bottom" type="submit" name="bookmark" value="закладки">
-                    <input class="bottom" type="submit" name="friend" value="друзья">
-                    <input class="bottom" type="submit" name="setting" value="настройки">
-                    <input class="bottom" type="submit" name="news" value="новости">
-                </form>
-            </div>
+           <%@include file="left.jsp"%>
         </div>
         <div class="right">
             <div class="inform">

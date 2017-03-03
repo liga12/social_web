@@ -1,17 +1,9 @@
 package model.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 
 @Entity
@@ -42,12 +34,14 @@ public class User implements Serializable {
     private String lastname;
 
     @OneToMany(fetch = FetchType.LAZY,
-        cascade = { CascadeType.ALL,CascadeType.PERSIST,CascadeType.MERGE },
-        mappedBy = "user")
-    List<Post>  posts;
+            cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "user")
+    private List<Post> posts;
 
-
-
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE},
+            mappedBy = "user")
+    private URLMassage urlMassages;
 
 //    @OneToOne(fetch = FetchType.LAZY, mappedBy = "user",
 //        cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE} )
@@ -124,6 +118,19 @@ public class User implements Serializable {
         return posts;
     }
 
+    public URLMassage getUrlMassages() {
+        return urlMassages;
+    }
+
+    public void setUrlMassages(URLMassage urlMassages) {
+        this.urlMassages = urlMassages;
+    }
+
+//    public void addPost(Post post){
+//        posts.add(post);
+//        post.setUser(this);
+//    }
+
     public void setPosts(List<Post> posts) {
         this.posts = posts;
     }
@@ -151,14 +158,15 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-            "id=" + id +
-            ", login='" + login + '\'' +
-            ", password='" + password + '\'' +
-            ", status=" + status +
-            ", email='" + email + '\'' +
-            ", firstname='" + firstname + '\'' +
-            ", lastname='" + lastname + '\'' +
-            ", posts=" + posts +
-            '}';
+                "id=" + id +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", status=" + status +
+                ", email='" + email + '\'' +
+                ", firstname='" + firstname + '\'' +
+                ", lastname='" + lastname + '\'' +
+                ", posts=" + posts +
+                ", urlMassages=" + urlMassages +
+                '}';
     }
 }

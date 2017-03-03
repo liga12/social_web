@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.entity;
 
 import java.io.Serializable;
@@ -21,14 +16,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author liga
- */
 @Entity
 @Table(name = "photo_post")
-@NamedQueries({
-    @NamedQuery(name = "PhotoPost.findAll", query = "SELECT p FROM PhotoPost p")})
 public class PhotoPost implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -40,11 +29,11 @@ public class PhotoPost implements Serializable {
     @Basic(optional = false)
     @Column(name = "location")
     private String location;
-    @Column(name = "date")
+    @Column(name = "date", insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @Column(name = "status")
-    private Integer status;
+    private boolean status;
     @JoinColumn(name = "id_post", referencedColumnName = "id")
     @ManyToOne
     private Post post;
@@ -85,11 +74,11 @@ public class PhotoPost implements Serializable {
         this.date = date;
     }
 
-    public Integer getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(boolean status) {
         this.status = status;
     }
 
@@ -100,6 +89,8 @@ public class PhotoPost implements Serializable {
     public void setPost(Post post) {
         this.post = post;
     }
+
+
 
     @Override
     public int hashCode() {

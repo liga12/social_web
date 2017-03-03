@@ -1,22 +1,22 @@
 /*.my-flex-container{*/
-  /*display: flex;*/
-  /*background-color: black;*/
-  /*height: 70px;*/
-  /*width: 100%;*/
-  /*border: 1px dashed red;*/
-  /*flex-direction: row;*/
-  /*justify-content: flex-start;*/
-  /*align-items: stretch;*/
+/*display: flex;*/
+/*background-color: black;*/
+/*height: 70px;*/
+/*width: 100%;*/
+/*border: 1px dashed red;*/
+/*flex-direction: row;*/
+/*justify-content: flex-start;*/
+/*align-items: stretch;*/
 /*}*/
 
 /*.my-flex-block1{*/
-  /*display: flex;*/
-  /*background-color: blueviolet;*/
-  /*!*height: 50px;*!*/
-  /*width:50%;*/
-  /*border: 1px dashed green;*/
-  /*!*flex-direction: row-reverse;*!*/
-  /*flex-wrap: nowrap;*/
+/*display: flex;*/
+/*background-color: blueviolet;*/
+/*!*height: 50px;*!*/
+/*width:50%;*/
+/*border: 1px dashed green;*/
+/*!*flex-direction: row-reverse;*!*/
+/*flex-wrap: nowrap;*/
 /*}*/
 
 body{

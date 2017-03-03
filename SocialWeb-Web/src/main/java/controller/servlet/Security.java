@@ -28,20 +28,25 @@ public class Security extends HttpServlet {
 
         User user = new Authorization().getUserAuthorization(login, password);
         if (user != null) {
-            String firstname = user.getFirstname();
-            String lasttname = user.getLastname();
-            String name = new String(firstname + " " + lasttname);
-            req.setAttribute("name", name);
-            HttpSession session = req.getSession(true);
-            session.setAttribute("user", user);
-            Cookie cookie = new Cookie("idSession", session.getId());
-            resp.addCookie(cookie);
-            resp.sendRedirect("/soc");
-
+            if (user.getStatus() == true) {
+                String firstname = user.getFirstname();
+                String lasttname = user.getLastname();
+                String name = new String(firstname + " " + lasttname);
+                req.setAttribute("name", name);
+                HttpSession session = req.getSession(true);
+                session.setAttribute("user", user);
+                Cookie cookie = new Cookie("idSession", session.getId());
+                resp.addCookie(cookie);
+                resp.sendRedirect("/soc");
+            } else {
+                req.setAttribute("data", "Пройдите на почту для подтверждения регистрации");
+                new Page().createPage(req, resp, "/start");
+            }
         } else {
             req.setAttribute("data", "Неверный логин или пароль");
             new Page().createPage(req, resp, "/start");
         }
+
     }
 }
 

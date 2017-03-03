@@ -1,60 +1,43 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package model.entity;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
-/**
- *
- * @author liga
- */
 @Entity
 @Table(name = "post")
-@NamedQueries({
-    @NamedQuery(name = "Post.findAll", query = "SELECT p FROM Post p")})
 public class Post implements Serializable {
-
-    private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "like")
+    @Column(name = "likes")
     private int like;
     @Basic(optional = false)
-    @Column(name = "date")
+    @Column(name = "date",  insertable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @Column(name = "status")
-    private Boolean status;
-    @OneToMany(mappedBy = "post")
+    private boolean status;
+    @Column(name = "comment")
+    private String comment;
+
+    @Column(name = "all_user", columnDefinition = "bit(1) default true")
+    private boolean allUser;
+
+    @OneToMany( cascade = {CascadeType.ALL, CascadeType.PERSIST, CascadeType.MERGE},mappedBy = "post")
     private List<PhotoPost> photoPostList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<Bookmark> bookmarkList;
-    @JoinColumn(name = "id_user", referencedColumnName = "id")
+    @JoinColumn(name = "id_user", referencedColumnName = "id", unique = false, nullable = false, insertable = true, updatable = true)
     @ManyToOne(optional = false)
     private User user;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private List<Comment> commentList;
+
 
     public Post() {
     }
@@ -93,12 +76,28 @@ public class Post implements Serializable {
         this.date = date;
     }
 
-    public Boolean getStatus() {
+    public boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public boolean getAllUser() {
+        return allUser;
+    }
+
+    public void setAllUser(boolean allUser) {
+        this.allUser = allUser;
     }
 
     public List<PhotoPost> getPhotoPostList() {
@@ -116,7 +115,7 @@ public class Post implements Serializable {
     public void setBookmarkList(List<Bookmark> bookmarkList) {
         this.bookmarkList = bookmarkList;
     }
-
+//
     public User getUser() {
         return user;
     }
@@ -156,13 +155,14 @@ public class Post implements Serializable {
     @Override
     public String toString() {
         return "Post{" +
-            "id=" + id +
-            ", like=" + like +
-            ", date=" + date +
-            ", status=" + status +
-            ", photoPostList=" + photoPostList +
-            ", bookmarkList=" + bookmarkList +
-            ", commentList=" + commentList +
-            '}';
+                "id=" + id +
+                ", like=" + like +
+                ", date=" + date +
+                ", status=" + status +
+                ", comment='" + comment + '\'' +
+                ", photoPostList=" + photoPostList +
+                ", bookmarkList=" + bookmarkList +
+                ", commentList=" + commentList +
+                '}';
     }
 }
