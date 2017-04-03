@@ -8,6 +8,7 @@ import socit.service.URLService;
 import socit.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -17,20 +18,20 @@ public class RegistrationUserImp implements RegistrationUser {
     private UserService userService;
     @Autowired
     private URLService urlService;
-    @Autowired
-    private Validator validator;
+//    @Autowired
+//    private Validator validator;
 
-
+    @Override
     public List<String> setRegistration(String firstname, String lastname, String email, String login,
                                         String password, String passwordTwo, HttpServletRequest request) {
 
 
-        List<String> validate = validator.validationRegistrationData(firstname, lastname, email, login,
-                password, passwordTwo);
-        if (validate.size() == 0) {
+//        List<String> validate = validator.validationRegistrationData(firstname, lastname, email, login,
+//                password, passwordTwo);
+//        if (validate.size() == 0) {
             User user = new User();
             user.setLogin(login);
-            user.setPassword(new Encrupt().getEncryptedMd5ApacheAndAES(password));
+//            user.setPassword(new Encrupt().getEncryptedMd5ApacheAndAES(password));
             user.setPassword(password);
             user.setFirstname(firstname);
             user.setLastname(lastname);
@@ -42,8 +43,9 @@ public class RegistrationUserImp implements RegistrationUser {
             urlService.save(urlMassage);
             Mailer mailer = new Mailer();
             mailer.send(email, getFullUrl(request, email));
-        }
-        return validate;
+         List<String> sss  =new ArrayList<>();
+//        }
+        return sss ;
     }
 
     @Override

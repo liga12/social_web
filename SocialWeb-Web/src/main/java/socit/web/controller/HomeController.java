@@ -1,13 +1,17 @@
 package socit.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import socit.domain.User;
 import socit.service.UserService;
+import socit.web.RegistrationUser;
 import socit.web.RegistrationUserImp;
+import sun.plugin.liveconnect.SecurityContextHelper;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -18,6 +22,8 @@ public class HomeController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RegistrationUser registrationUser;
 //    @ResponseBody
 //    @RequestMapping(value = "/", method = RequestMethod.GET)
 //    public String getHomePage() {
@@ -31,46 +37,59 @@ public class HomeController {
 //        return userService.byUserArgument("2", "login").getFirstname();
 //    }
 //
-    @RequestMapping(value="/", method = RequestMethod.GET)
-    public String getHomePage(){
-        userService.byUserArgument("1", "login");
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String getLogin() {
+//        userService.byUserArgument("1", "login");
         return "login";
     }
 
-    @RequestMapping(value = "/registrationPage", method = RequestMethod.POST)
-    public String getRegistrationPage() {
-        return "registration";
+
+    @RequestMapping(value = "admin/home", method = RequestMethod.GET)
+    public String getHomePage() {
+        return "home";
     }
 
-    @RequestMapping(value = "/registration", method = RequestMethod.POST)
-    public ModelAndView getRegistration(@RequestParam("firstname") String firstname,
-                                        @RequestParam("lastname") String lastname,
-                                        @RequestParam("email") String email,
-                                        @RequestParam("login") String login,
-                                        @RequestParam("password") String password,
-                                        @RequestParam("passwordtwo") String passwordTwo,
-                                        HttpServletRequest req) {
-        String data = "";
-        ModelAndView modelAndView;
-        List<String> registration = new RegistrationUserImp().setRegistration
-                (firstname, lastname, email, login, password, passwordTwo, req);
-        if (registration.size() == 0) {
-            String[] emailc = email.split("@");
-            String emailClient = emailc[1];
-            modelAndView = new ModelAndView("onEmail");
-            modelAndView.addObject("host", "https://" + emailClient);
-        } else {
-            for (String s : registration) {
-                data += "  " + s;
-            }
-            modelAndView = new ModelAndView("registration");
-            modelAndView.addObject("data", data);
-            data = null;
-        }
-        return modelAndView;
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String getHomePae() {
+        User u = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return "home";
     }
 
-//    @ResponseBody
+
+//    @RequestMapping(value = "/registrationPage", method = RequestMethod.POST)
+//    public String getRegistrationPage() {
+//        return "registration";
+//    }
+//
+//    @RequestMapping(value = "/registration", method = RequestMethod.POST)
+//    public ModelAndView getRegistration(@RequestParam("firstname") String firstname,
+//                                        @RequestParam("lastname") String lastname,
+//                                        @RequestParam("email") String email,
+//                                        @RequestParam("login") String login,
+//                                        @RequestParam("password") String password,
+//                                        @RequestParam("passwordtwo") String passwordTwo,
+//                                        HttpServletRequest req) {
+//        String data = "";
+//        ModelAndView modelAndView;
+//        List<String> registration = registrationUser.setRegistration
+//                (firstname, lastname, email, login, password, passwordTwo, req);
+//        if (registration.size() == 0) {
+//            String[] emailc = email.split("@");
+//            String emailClient = emailc[1];
+//            modelAndView = new ModelAndView("onEmail");
+//            modelAndView.addObject("host", "https://" + emailClient);
+//        } else {
+//            for (String s : registration) {
+//                data += "  " + s;
+//            }
+//            modelAndView = new ModelAndView("registration");
+//            modelAndView.addObject("data", data);
+//            data = null;
+//        }
+//        return modelAndView;
+//    }
+
+
 //    @RequestMapping(value="/", method = RequestMethod.GET, produces = "text/plain")
 //    public ModelAndView getHomePage2(){
 //        ModelAndView modelAndView = new ModelAndView("home");
@@ -90,10 +109,10 @@ public class HomeController {
 //        return modelAndView;
 //    }
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public ModelAndView getHomePage22(@RequestParam("name") String name) {
-        ModelAndView modelAndView = new ModelAndView("home");
-        modelAndView.addObject("name", name);
-        return modelAndView;
-    }
+//    @RequestMapping(value = "/user", method = RequestMethod.POST)
+//    public ModelAndView getHomePage22(@RequestParam("name") String name) {
+//        ModelAndView modelAndView = new ModelAndView("home");
+//        modelAndView.addObject("name", name);
+//        return modelAndView;
+//    }
 }
